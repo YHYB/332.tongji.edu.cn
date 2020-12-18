@@ -1,0 +1,26 @@
+server:
+  port: 9999
+  servlet:
+    context-path: /demo
+spring:
+  application:
+    name: spring-boot-demo
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/student?useUnicode=true&characterEncoding=UTF8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+  jpa:
+    database: MySQL
+    show-sql: true
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
+jwt:
+  config:
+    key: demo
