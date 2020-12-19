@@ -1,0 +1,14 @@
+
+spring:
+  datasource:
+    name: gamble
+    url: jdbc:mysql://localhost:3306/gamble?useUnicode=true&useJDBCCompliantTimezoneShift=true&serverTimezone=UTC&characterEncoding=utf8&useSSL=false #url
+    username: root
+    password: brian1223
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml  # 配置映射文件
+  type-aliases-package: com.example.coursetest.bean # 配置实体类
+server:
+  port: 821
