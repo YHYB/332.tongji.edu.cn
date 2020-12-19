@@ -6,16 +6,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
-@SpringBootApplication(scanBasePackages = "com.example.coursetest")
-@MapperScan("com.example.coursetest.mapper")
-public class CoursetestApplication extends SpringBootServletInitializer {
+@SpringBootApplication(scanBasePackages = "team.scholarship")
+@MapperScan("team.scholarship.mapper")
+public class ScholarshipSystemApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        SpringApplication.run(CoursetestApplication.class, args);
+        SpringApplication.run(ScholarshipSystemApplication.class, args);
     }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(CoursetestApplication.class);
+        return builder.sources(ScholarshipSystemApplication.class);
     }
 }
