@@ -22,7 +22,7 @@ public class UserController {
     @PostMapping("/login")
     public String login(String userID, String password) {
 
-        User user = userService.getPwd(userID);
+        User user = userService.getUserInfo(userID);
         String pwd = user.getPassword();
         String name = user.getName();
 
@@ -31,5 +31,10 @@ public class UserController {
         } else {
             return "login failed: " + name;
         }
+    }
+
+    @PostMapping("/info")
+    public User getUserInfo(String userID) {
+        return userService.getUserInfo(userID);
     }
 }

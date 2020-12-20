@@ -12,5 +12,5 @@ import team.scholarship.bean.User;
 @Service
 public interface UserService {
 
-    User getPwd(String usrId);
+    User getUserInfo(String userID);
 }

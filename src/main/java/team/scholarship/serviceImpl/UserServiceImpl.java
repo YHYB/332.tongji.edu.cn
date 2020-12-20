@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public User getPwd(String usrId) {
-        return userMapper.getPwd(usrId);
+    public User getUserInfo(String userID) {
+        return userMapper.getUserInfo(userID);
     }
 }
