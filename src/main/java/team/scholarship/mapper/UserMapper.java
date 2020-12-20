@@ -14,7 +14,5 @@ import team.scholarship.bean.User;
 @Repository
 public interface UserMapper {
 
-    User getUserInfo(String username, String password);
-
-    User getPwd(String id);
+    User getUserInfo(String userID);
 }
