@@ -27,7 +27,7 @@ public class UserController {
         String name = user.getName();
 
         if (pwd.equals(password)) {
-            return "login success: " + name;
+            return "login successfully: " + name;
         } else {
             return "login failed: " + name;
         }
