@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @CrossOrigin
 @RestController
+@RequestMapping("/hello")
 public class HelloController {
 
     @PostMapping("/say")
