@@ -1,0 +1,14 @@
+
+spring:
+  datasource:
+    name: gamble
+    url: jdbc:mysql://121.196.165.230:3306/scholarship?useUnicode=true&useJDBCCompliantTimezoneShift=true&serverTimezone=UTC&characterEncoding=utf8&useSSL=false #url
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml  # 配置映射文件
+  type-aliases-package: team.scholarship.bean # 配置实体类
+server:
+  port: 813
