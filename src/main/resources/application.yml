@@ -11,4 +11,4 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml  # 配置映射文件
   type-aliases-package: team.scholarship.bean # 配置实体类
 server:
-  port: 821
+  port: 813
