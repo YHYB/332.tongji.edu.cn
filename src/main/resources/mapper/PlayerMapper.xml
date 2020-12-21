@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="team.scholarship.mapper.PlayerMapper">
-
-    <select id="getInfo" parameterType="String" resultType="team.scholarship.bean.PlayerBean">
-        SELECT PLAYER_NAME FROM player WHERE NICK_NAME = #{name}
-    </select>
-
-</mapper>

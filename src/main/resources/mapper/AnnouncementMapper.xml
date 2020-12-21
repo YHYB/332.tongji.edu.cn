@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.scholarship.mapper.AnnouncementMapper">
+
+    <select id="searchById" parameterType="int" resultType="team.scholarship.bean.Announcement">
+        SELECT * FROM announcement WHERE id = #{id}
+    </select>
+
+    <select id="getReadNumById" parameterType="int" resultType="int">
+        SELECT readNum FROM announcement WHERE id = #{id}
+    </select>
+
+    <!--    how to modified-->
+    <update id="setReadNumById">
+        UPDATE announcement SET readNum = #{num} WHERE id = #{id}
+    </update>
+</mapper>
