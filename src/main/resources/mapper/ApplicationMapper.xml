@@ -2,8 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="team.scholarship.mapper.ApplicationMapper">
 
-    <select id="searchByUser" parameterType="String" resultType="team.scholarship.bean.Application">
+    <select id="searchByUser" resultType="team.scholarship.bean.Application">
         SELECT * FROM application WHERE usr_id = #{userID}
     </select>
+
+    <insert id="addApplication">
+        INSERT INTO application
+        VALUES (#{userID}, #{year}, #{scholarName}, null, #{reason}, 0)
+    </insert>
 
 </mapper>

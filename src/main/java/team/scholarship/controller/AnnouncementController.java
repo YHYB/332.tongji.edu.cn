@@ -19,15 +19,14 @@ import team.scholarship.service.ApplicationService;
 @CrossOrigin
 @RestController
 @RequestMapping("/announcement")
-
 public class AnnouncementController {
     @Autowired
     private AnnouncementService announcementService;
+
     @PostMapping("/searchById")
     public Announcement searchById(int id){
         return announcementService.searchById(id);
     }
-
 
     public void readNumIncrease(int id){
         announcementService.readNumIncrease(id);

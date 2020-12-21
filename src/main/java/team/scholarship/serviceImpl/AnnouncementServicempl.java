@@ -26,6 +26,7 @@ public class AnnouncementServicempl implements AnnouncementService {
 
     @Override
     public void readNumIncrease(int id) {
+        // TODO 如果查到为空，会报错
         int num = announcementMapper.getReadNumById(id);
         num++;
         announcementMapper.setReadNumById(id,num);
