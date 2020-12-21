@@ -21,7 +21,6 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/announcement")
-
 public class AnnouncementController {
     @Autowired
     private AnnouncementService announcementService;

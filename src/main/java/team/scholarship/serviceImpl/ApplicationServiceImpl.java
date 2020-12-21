@@ -24,4 +24,15 @@ public class ApplicationServiceImpl implements ApplicationService {
     public List<Application> searchByUser(String userID) {
         return applicationMapper.searchByUser(userID);
     }
+
+    @Override
+    public boolean addApplication(String userID, String year, String scholarName, String reason) {
+
+        try {
+            applicationMapper.addApplication(userID, year, scholarName, reason);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -6,7 +6,7 @@
         SELECT * FROM announcement WHERE id = #{id}
     </select>
 
-    <select id="getReadNumById" parameterType="int" resultType="int">
+    <select id="getReadNumById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         SELECT readNum FROM announcement WHERE id = #{id}
     </select>
 
