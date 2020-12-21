@@ -14,7 +14,7 @@ import team.scholarship.service.AnnouncementService;
  * @date 2020/12/20 20:55
  */
 @Service
-public class AnnouncementServicempl implements AnnouncementService {
+public class AnnouncementServiceImpl implements AnnouncementService {
     @Autowired
     private AnnouncementMapper announcementMapper;
 
