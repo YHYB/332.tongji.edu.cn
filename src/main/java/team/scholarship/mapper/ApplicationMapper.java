@@ -18,5 +18,4 @@ public interface ApplicationMapper {
 
     List<Application> searchByUser(String userID);
 
-
 }
