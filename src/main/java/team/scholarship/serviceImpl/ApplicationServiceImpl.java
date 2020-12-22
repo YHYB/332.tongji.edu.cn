@@ -26,10 +26,12 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public boolean addApplication(String userID, String year, String scholarName, String award, String reason) {
+    public boolean addApplication(String userID, String year, String scholarName,
+                                  String userName, double userGpa,
+                                  String award, boolean canAdjust, String reason) {
 
         try {
-            applicationMapper.addApplication(userID, year, scholarName, award, reason);
+            applicationMapper.addApplication(userID, year, scholarName, userName, userGpa, award, canAdjust, reason);
         } catch (Exception e) {
             return false;
         }

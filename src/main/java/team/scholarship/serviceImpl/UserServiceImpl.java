@@ -20,6 +20,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserInfo(String userID) {
-        return userMapper.getUserInfo(userID);
+
+        User user = null;
+
+        try {
+            user = userMapper.getUserInfo(userID);
+        } catch (Exception e) {
+            return null;
+        }
+        return user;
     }
 }

@@ -42,8 +42,11 @@ public class ApplicationController {
     }
 
     @PostMapping("/add")
-    public Result<String> addApplication(String userID, String year, String scholarName, String award, String reason) {
-        boolean add = applicationService.addApplication(userID, year, scholarName, award, reason);
+    public Result<String> addApplication(String userID, String year, String scholarName,
+                                             String userName, double userGpa,
+                                             String award, boolean canAdjust, String reason) {
+        boolean add = applicationService.addApplication(userID, year, scholarName, userName, userGpa, award,
+                                                        canAdjust, reason);
 
         if (add) {
             return new Result<>(StatusEnum.SUCCESS, "申请成功");

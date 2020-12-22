@@ -8,7 +8,8 @@
 
     <insert id="addApplication">
         INSERT INTO application
-        VALUES (#{userID}, #{year}, #{scholarName}, null, #{award}, #{reason})
+        VALUES (#{userID}, #{year}, #{scholarName}, #{userName},
+                #{userGpa}, null, #{award}, #{reason},  #{canAdjust}, "待审核")
     </insert>
 
     <update id="updateInfo">

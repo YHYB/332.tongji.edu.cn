@@ -23,7 +23,10 @@ public interface ApplicationMapper {
 
     void addApplication(@Param("userID") String userID, @Param("year") String year,
                                @Param("scholarName") String scholarName,
-                               @Param("award") String award, @Param("reason") String reason);
+                               @Param("userName") String userName,
+                               @Param("userGpa") double userGpa,
+                               @Param("award") String award, @Param("canAdjust") boolean canAdjust,
+                               @Param("reason") String reason);
 
     void updateInfo(@Param("userID") String userID, @Param("year") String year,
                            @Param("scholarName") String scholarName,

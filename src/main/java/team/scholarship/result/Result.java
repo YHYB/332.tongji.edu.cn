@@ -1,6 +1,5 @@
 package team.scholarship.result;
 
-import com.sun.org.apache.bcel.internal.classfile.Code;
 
 /**
  * @ClassName Result
@@ -34,6 +33,10 @@ public class Result<T> {
         this.code = statusEnum.getCode();
         this.msg = statusEnum.getMsg();
         this.data = data;
+    }
+
+    public Result(StatusEnum statusEnum) {
+        this(statusEnum, null);
     }
 
     public int getCode() {
