@@ -41,29 +41,28 @@ public class ApplicationController {
 
     @PostMapping("/searchByUser")
     public Result searchByUser(String userID) {
+        System.out.println("输入userID:" + userID);
         List<Application> data = applicationService.searchByUser(userID);
         System.out.println(data);
 
         if (data.size() == 0) {
-            // 查询成功，但没有数据
-            return new Result(StatusEnum.NO_DATA, data);
+            return Result.ERROR(StatusEnum.NO_DATA, "没有查询到任何申请");
         } else {
-            // 查询成功
-            return new Result(StatusEnum.SUCCESS, data);
+            return Result.SUCCESS(data);
         }
     }
 
     @PostMapping("/add")
     public Result addApplication(String userID, String year, String scholarName,
-                                             String userName, double userGpa,
-                                             String award, boolean canAdjust, String reason) {
+                                 String userName, double userGpa,
+                                 String award, boolean canAdjust, String reason) {
         boolean add = applicationService.addApplication(userID, year, scholarName, userName, userGpa, award,
-                                                        canAdjust, reason);
+                canAdjust, reason);
 
         if (add) {
-            return new Result(StatusEnum.SUCCESS, "申请成功");
+            return Result.SUCCESS("申请成功");
         } else {
-            return new Result(StatusEnum.DUPLICATE_PK,"已申请过该奖学金！");
+            return Result.ERROR(StatusEnum.DUPLICATE_PK, "已申请该奖学金");
         }
     }
 
@@ -72,9 +71,9 @@ public class ApplicationController {
         boolean update = applicationService.updateInfo(userID, year, scholarName, award, reason);
 
         if (update) {
-            return new Result(StatusEnum.SUCCESS, "更新成功");
+            return Result.SUCCESS("更新成功");
         } else {
-            return new Result(StatusEnum.NO_DATA,"更新失败");
+            return Result.ERROR(StatusEnum.NO_DATA, "更新失败");
         }
     }
 
@@ -83,9 +82,9 @@ public class ApplicationController {
         boolean update = applicationService.updateScore(userID, year, scholarName, score);
 
         if (update) {
-            return new Result(StatusEnum.SUCCESS, "更新成功");
+            return Result.SUCCESS("更新成功");
         } else {
-            return new Result(StatusEnum.NO_DATA,"更新失败");
+            return Result.ERROR(StatusEnum.NO_DATA, "更新失败");
         }
     }
 }

@@ -10,7 +10,7 @@ public class User {
 
     private String id;
 
-    private String name;
+    private String user_name;
 
     private String password;
 
@@ -25,11 +25,11 @@ public class User {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.user_name = name;
     }
 
     public String getName() {
-        return name;
+        return user_name;
     }
 
     public void setPassword(String password) {

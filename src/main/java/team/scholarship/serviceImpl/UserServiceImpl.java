@@ -4,10 +4,13 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import team.scholarship.bean.Application;
 import team.scholarship.bean.User;
 import team.scholarship.mapper.UserMapper;
 import team.scholarship.service.UserService;
 import team.scholarship.util.JwtUtil;
+
+import java.util.List;
 
 /**
  * @ClassName UserServiceImpl
@@ -75,5 +78,10 @@ public class UserServiceImpl implements UserService {
 //        }
         userMapper.update(userID, userName, password, score);
         return true;
+    }
+
+    @Override
+    public List<User> searchAll() {
+        return userMapper.searchAll();
     }
 }

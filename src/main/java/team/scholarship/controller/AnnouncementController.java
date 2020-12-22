@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team.scholarship.bean.Announcement;
 import team.scholarship.service.AnnouncementService;
-import team.scholarship.service.ApplicationService;
 
 import java.util.List;
 

@@ -3,6 +3,8 @@ package team.scholarship.service;
 import org.springframework.stereotype.Service;
 import team.scholarship.bean.User;
 
+import java.util.List;
+
 /**
  * @ClassName UserService
  * @Description TODO
@@ -21,4 +23,6 @@ public interface UserService {
     User getInfo(String token);
 
     boolean update(String userID, String userName, String password, double score);
+
+    List<User> searchAll();
 }

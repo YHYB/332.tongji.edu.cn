@@ -10,6 +10,7 @@ import team.scholarship.util.JwtUtil;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -76,8 +77,14 @@ public class UserController {
     }
 
     @PostMapping("/info")
-    public User getUserInfo(String userID) {
-        return userService.getUserInfo(userID);
+    public Result getUserInfo(String userID) {
+        User user = userService.getUserInfo(userID);
+
+        if (user == null) {
+            return Result.ERROR(StatusEnum.NO_DATA,null);
+        } else {
+            return Result.SUCCESS(user);
+        }
     }
 
     @PostMapping("/update")
@@ -90,4 +97,10 @@ public class UserController {
             return Result.ERROR(StatusEnum.NO_DATA, "用户信息更新失败");
         }
     }
+
+    @PostMapping("searchAll")
+    public Result searchAll() {
+        return Result.SUCCESS(userService.searchAll());
+    }
+
 }
