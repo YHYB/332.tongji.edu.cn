@@ -14,6 +14,8 @@ import java.util.List;
 @Service
 public interface ApplicationService {
 
+    List<Application> searchAll();
+
     List<Application> searchByUser(String userID);
 
     boolean addApplication(String userID, String year, String scholarName,

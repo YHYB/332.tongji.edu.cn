@@ -17,6 +17,8 @@ import java.util.List;
 @Repository
 public interface ApplicationMapper {
 
+    List<Application> searchAll();
+
     List<Application> searchByUser(@Param("userID") String userID);
 
     void addApplication(@Param("userID") String userID, @Param("year") String year,

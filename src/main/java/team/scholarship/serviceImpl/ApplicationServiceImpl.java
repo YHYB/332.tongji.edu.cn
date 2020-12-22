@@ -21,6 +21,11 @@ public class ApplicationServiceImpl implements ApplicationService {
     private ApplicationMapper applicationMapper;
 
     @Override
+    public List<Application> searchAll() {
+        return applicationMapper.searchAll();
+    }
+
+    @Override
     public List<Application> searchByUser(String userID) {
         return applicationMapper.searchByUser(userID);
     }

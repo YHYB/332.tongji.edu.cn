@@ -27,6 +27,18 @@ public class ApplicationController {
     @Autowired
     private ApplicationService applicationService;
 
+    @PostMapping("/searchAll")
+    public Result searchAll() {
+        List<Application> data = applicationService.searchAll();
+        System.out.println(data);
+
+        if (data.size() == 0) {
+            return Result.ERROR(StatusEnum.NO_DATA, "没有查询到任何申请");
+        } else {
+            return Result.SUCCESS(data);
+        }
+    }
+
     @PostMapping("/searchByUser")
     public Result searchByUser(String userID) {
         List<Application> data = applicationService.searchByUser(userID);
