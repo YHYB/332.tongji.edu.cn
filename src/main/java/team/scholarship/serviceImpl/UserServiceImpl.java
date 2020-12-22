@@ -65,4 +65,15 @@ public class UserServiceImpl implements UserService {
         String userID = claims.getId();
         return userMapper.getUserInfo(userID);
     }
+
+    @Override
+    public boolean update(String userID, String userName, String password, double score) {
+//        try {
+//            userMapper.update(userID, userName, password, score);
+//        } catch (Exception e) {
+//            return false;
+//        }
+        userMapper.update(userID, userName, password, score);
+        return true;
+    }
 }

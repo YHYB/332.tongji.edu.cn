@@ -19,7 +19,7 @@ public interface UserMapper {
 
     void register(@Param("userID") String userID, @Param("name") String name,
                   @Param("password") String password);
-    
+
     void update(@Param("userID") String userID, @Param("name") String name,
-                @Param("password") String password, @Param("score") String score);
+                @Param("password") String password, @Param("score") double score);
 }

@@ -47,6 +47,9 @@ public class UserController {
 
     @PostMapping("/login/info")
     public Result getInfoByToken(String token) {
+
+        Map<String, Object> resultMap = new HashMap<>();
+
         User user = userService.getInfo(token);
         if (user != null) {
             return Result.SUCCESS(user);
@@ -54,7 +57,7 @@ public class UserController {
         return Result.ERROR(StatusEnum.NO_DATA,"账户登录过期，请重新登陆");
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public Result logout(HttpSession httpSession) {
         httpSession.removeAttribute("token");
         return Result.SUCCESS("登出成功");
@@ -72,10 +75,19 @@ public class UserController {
 
     }
 
-
-
     @PostMapping("/info")
     public User getUserInfo(String userID) {
         return userService.getUserInfo(userID);
+    }
+
+    @PostMapping("/update")
+    public Result update(String userID, String userName, String password, double score) {
+        boolean success = userService.update(userID, userName, password, score);
+
+        if (success) {
+            return Result.SUCCESS("用户信息更新成功");
+        } else {
+            return Result.ERROR(StatusEnum.NO_DATA, "用户信息更新失败");
+        }
     }
 }

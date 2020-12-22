@@ -19,4 +19,6 @@ public interface UserService {
     boolean register(String userID, String userName, String password);
 
     User getInfo(String token);
+
+    boolean update(String userID, String userName, String password, double score);
 }
