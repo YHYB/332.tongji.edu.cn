@@ -9,6 +9,8 @@ import team.scholarship.bean.Announcement;
 import team.scholarship.service.AnnouncementService;
 import team.scholarship.service.ApplicationService;
 
+import java.util.List;
+
 /**
  * @author Kerr
  * @project scholar management system
@@ -23,11 +25,28 @@ public class AnnouncementController {
     @Autowired
     private AnnouncementService announcementService;
 
+    /**
+     * used to search announcement by id
+     * @param id announcement's id
+     * @return an announcement whose id == #{id}
+     */
     @PostMapping("/searchById")
     public Announcement searchById(int id){
         return announcementService.searchById(id);
     }
 
+    /**
+     * used to search announcement by key words in title
+     * @param info which information user wants to search
+     * @return a list of announcements whose title include the key word matching #{info}
+     */
+    @PostMapping("/searchByTitle")
+    public List<Announcement> searchByTitle(String info){return announcementService.searchByTitle(info);}
+
+    /**
+     * make the readNum of the announcement whose id == #{id} increase one
+     * @param id announcement's id
+     */
     public void readNumIncrease(int id){
         announcementService.readNumIncrease(id);
     }
