@@ -16,6 +16,8 @@ public class Application {
 
     private double usr_score;
 
+    private String award;
+
     private String reason;
 
     private int status;
@@ -50,6 +52,14 @@ public class Application {
 
     public double getUsr_score() {
         return usr_score;
+    }
+
+    public void setAward(String award) {
+        this.award = award;
+    }
+
+    public String getAward() {
+        return award;
     }
 
     public void setReason(String reason) {

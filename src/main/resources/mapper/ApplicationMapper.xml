@@ -8,7 +8,19 @@
 
     <insert id="addApplication">
         INSERT INTO application
-        VALUES (#{userID}, #{year}, #{scholarName}, null, #{reason}, 0)
+        VALUES (#{userID}, #{year}, #{scholarName}, null, #{award}, #{reason})
     </insert>
+
+    <update id="updateInfo">
+        UPDATE application
+        SET award = #{award}, reason = #{reason}
+        WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
+    </update>
+
+    <update id="updateScore">
+        UPDATE application
+        SET usr_score = #{score}
+        WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
+    </update>
 
 </mapper>

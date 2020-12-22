@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team.scholarship.bean.Application;
-import team.scholarship.bean.Scholarship;
-import team.scholarship.bean.User;
 import team.scholarship.result.Result;
 import team.scholarship.result.StatusEnum;
 import team.scholarship.service.ApplicationService;
@@ -30,25 +28,49 @@ public class ApplicationController {
     private ApplicationService applicationService;
 
     @PostMapping("/searchByUser")
-    public Result<List<Application>> searchByUser(@Param("userID") String userID) {
+    public Result<List<Application>> searchByUser(String userID) {
         List<Application> data = applicationService.searchByUser(userID);
         System.out.println(data);
 
         if (data.size() == 0) {
+            // 查询成功，但没有数据
             return new Result<>(StatusEnum.NO_DATA, data);
         } else {
+            // 查询成功
             return new Result<>(StatusEnum.SUCCESS, data);
         }
     }
 
     @PostMapping("/add")
-    public Result<String> addApplication(String userID, String year, String scholarName, String reason) {
-        boolean add = applicationService.addApplication(userID, year, scholarName, reason);
+    public Result<String> addApplication(String userID, String year, String scholarName, String award, String reason) {
+        boolean add = applicationService.addApplication(userID, year, scholarName, award, reason);
 
         if (add) {
             return new Result<>(StatusEnum.SUCCESS, "申请成功");
         } else {
             return new Result<>(StatusEnum.DUPLICATE_PK,"已申请过该奖学金！");
+        }
+    }
+
+    @PostMapping("/updateInfo")
+    public Result<String> updateInfo(String userID, String year, String scholarName, String award, String reason) {
+        boolean update = applicationService.updateInfo(userID, year, scholarName, award, reason);
+
+        if (update) {
+            return new Result<>(StatusEnum.SUCCESS, "更新成功");
+        } else {
+            return new Result<>(StatusEnum.NO_DATA,"更新失败");
+        }
+    }
+
+    @PostMapping("/updateScore")
+    public Result<String> updateScore(String userID, String year, String scholarName, double score) {
+        boolean update = applicationService.updateScore(userID, year, scholarName, score);
+
+        if (update) {
+            return new Result<>(StatusEnum.SUCCESS, "更新成功");
+        } else {
+            return new Result<>(StatusEnum.NO_DATA,"更新失败");
         }
     }
 }

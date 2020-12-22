@@ -16,5 +16,9 @@ public interface ApplicationService {
 
     List<Application> searchByUser(String userID);
 
-    boolean addApplication(String userID, String year, String scholarName, String reason);
+    boolean addApplication(String userID, String year, String scholarName, String award, String reason);
+
+    boolean updateInfo(String userID, String year, String scholarName, String award, String reason);
+
+    boolean updateScore(String userID, String year, String scholarName, double score);
 }

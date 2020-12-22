@@ -23,6 +23,13 @@ public interface ApplicationMapper {
 
     void addApplication(@Param("userID") String userID, @Param("year") String year,
                                @Param("scholarName") String scholarName,
-                               @Param("reason") String reason);
+                               @Param("award") String award, @Param("reason") String reason);
 
+    void updateInfo(@Param("userID") String userID, @Param("year") String year,
+                           @Param("scholarName") String scholarName,
+                           @Param("award") String award, @Param("reason") String reason);
+
+    void updateScore(@Param("userID") String userID, @Param("year") String year,
+                     @Param("scholarName") String scholarName,
+                     @Param("score") double score);
 }
