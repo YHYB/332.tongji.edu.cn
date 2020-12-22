@@ -4,8 +4,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import team.scholarship.bean.Application;
-import team.scholarship.bean.Scholarship;
-import team.scholarship.bean.User;
 
 import java.util.List;
 

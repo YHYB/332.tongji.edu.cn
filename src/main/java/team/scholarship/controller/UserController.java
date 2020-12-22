@@ -6,6 +6,11 @@ import team.scholarship.bean.User;
 import team.scholarship.result.Result;
 import team.scholarship.result.StatusEnum;
 import team.scholarship.service.UserService;
+import team.scholarship.util.JwtUtil;
+
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @ClassName UserController
@@ -22,23 +27,52 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public Result<String> login(String userID, String password) {
+    public Result login(String userID, String password) {
 
-        User user = userService.getUserInfo(userID);
+        Map<String, Object> resultMap = new HashMap<>();
 
+        User user = userService.login(userID, password);
         if (user == null) {
-            return new Result<>(StatusEnum.NO_DATA);
+            return Result.ERROR(StatusEnum.WRONG_ID_OR_PWD);
         }
 
-        String pwd = user.getPassword();
-        String name = user.getName();
-
-        if (pwd.equals(password)) {
-            return new Result<>(StatusEnum.SUCCESS);
-        } else {
-            return new Result<>(StatusEnum.WRONG_PWD);
-        }
+        JwtUtil jwtUtil = new JwtUtil();
+        String token = jwtUtil.createJWT(user.getId(), user.getName(), "admin");
+        resultMap.put("token", token);
+        resultMap.put("userID", user.getId());
+        resultMap.put("userName", user.getName());
+        resultMap.put("role", user.getId().equals("admin") ? "admin" : "student");
+        return Result.SUCCESS(resultMap);
     }
+
+    @PostMapping("/login/info")
+    public Result getInfoByToken(String token) {
+        User user = userService.getInfo(token);
+        if (user != null) {
+            return Result.SUCCESS(user);
+        }
+        return Result.ERROR(StatusEnum.NO_DATA,"账户登录过期，请重新登陆");
+    }
+
+    @PostMapping("/logout")
+    public Result logout(HttpSession httpSession) {
+        httpSession.removeAttribute("token");
+        return Result.SUCCESS("登出成功");
+    }
+
+    @PostMapping("/register")
+    public Result register(String userID, String name, String password) {
+        boolean success = userService.register(userID, name, password);
+
+        if (success) {
+            return Result.SUCCESS(userService.getUserInfo(userID));
+        } else {
+            return Result.ERROR(StatusEnum.DUPLICATE_PK);
+        }
+
+    }
+
+
 
     @PostMapping("/info")
     public User getUserInfo(String userID) {

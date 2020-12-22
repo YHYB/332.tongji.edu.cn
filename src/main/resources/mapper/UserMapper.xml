@@ -6,4 +6,8 @@
         SELECT * FROM user WHERE id = #{id}
     </select>
 
+    <insert id="register">
+        INSERT INTO user
+        VALUES (#{userID}, #{name}, #{password}, null)
+    </insert>
 </mapper>

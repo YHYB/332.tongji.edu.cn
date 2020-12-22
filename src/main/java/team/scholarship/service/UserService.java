@@ -13,4 +13,10 @@ import team.scholarship.bean.User;
 public interface UserService {
 
     User getUserInfo(String userID);
+
+    User login(String userID, String password);
+
+    boolean register(String userID, String userName, String password);
+
+    User getInfo(String token);
 }

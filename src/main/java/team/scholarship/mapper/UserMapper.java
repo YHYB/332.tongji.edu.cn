@@ -1,6 +1,7 @@
 package team.scholarship.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import team.scholarship.bean.User;
 
@@ -15,4 +16,10 @@ import team.scholarship.bean.User;
 public interface UserMapper {
 
     User getUserInfo(String userID);
+
+    void register(@Param("userID") String userID, @Param("name") String name,
+                  @Param("password") String password);
+    
+    void update(@Param("userID") String userID, @Param("name") String name,
+                @Param("password") String password, @Param("score") String score);
 }
