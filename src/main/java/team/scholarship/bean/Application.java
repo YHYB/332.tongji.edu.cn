@@ -28,6 +28,8 @@ public class Application {
 
     private boolean can_adjust;
 
+    private String file_url;
+
     /**
      *
      */
@@ -111,5 +113,13 @@ public class Application {
 
     public String  getStatus() {
         return status;
+    }
+
+    public void setFile_url(String file_url) {
+        this.file_url = file_url;
+    }
+
+    public String getFile_url() {
+        return file_url;
     }
 }

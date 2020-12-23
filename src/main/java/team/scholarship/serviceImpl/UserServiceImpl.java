@@ -81,6 +81,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean changePwd(String userID, String userName, String password) {
+        userMapper.changePwd(userID, userName, password);
+        return true;
+    }
+
+    @Override
     public List<User> search(String userID, int startItem, int endItem) {
         List<User> result = this.search(userID);
 

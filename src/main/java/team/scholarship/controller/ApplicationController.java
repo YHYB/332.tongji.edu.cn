@@ -13,9 +13,7 @@ import team.scholarship.result.StatusEnum;
 import team.scholarship.service.ApplicationService;
 import team.scholarship.util.CastUtil;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @ClassName AnnounceController
@@ -72,10 +70,22 @@ public class ApplicationController {
     public Result searchForAdmin(String userID, String year, String scholarName,
                                  String startItem, String endItem) {
 
-        Result data = this.search(userID, year, scholarName, startItem, endItem);
-        List<Application> applications = CastUtil.castList(data, Application.class);
+        int start = startItem == null ? -1 : Integer.parseInt(startItem);
+        int end = endItem == null ? -1 : Integer.parseInt(endItem);
 
-        return Result.SUCCESS();
+        List<Application> applications = applicationService.search(userID, year, scholarName,
+                start - 1, end);
+
+        if (applications == null) {
+            return Result.ERROR(StatusEnum.NO_DATA);
+        }
+
+        applications.removeIf(application -> !application.getStatus().equals("待审核"));
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("data", applications);
+        resultMap.put("totalNum", applications.size());
+        return Result.SUCCESS(resultMap);
     }
 
     @PostMapping("/add")
@@ -143,4 +153,6 @@ public class ApplicationController {
             return Result.ERROR(StatusEnum.NO_DATA, "更新失败");
         }
     }
+
+
 }

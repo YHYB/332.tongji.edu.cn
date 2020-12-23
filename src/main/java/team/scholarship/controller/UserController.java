@@ -1,8 +1,10 @@
 package team.scholarship.controller;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import team.scholarship.bean.User;
+import team.scholarship.mapper.UserMapper;
 import team.scholarship.result.Result;
 import team.scholarship.result.StatusEnum;
 import team.scholarship.service.UserService;
@@ -97,13 +99,24 @@ public class UserController {
         }
     }
 
+    @PostMapping("/changePwd")
+    public Result changePwd(String userID, String userName, String password) {
+        boolean success = userService.changePwd(userID, userName, password);
+
+        if (success) {
+            return Result.SUCCESS("用户信息更新成功");
+        } else {
+            return Result.ERROR(StatusEnum.NO_DATA, "用户信息更新失败");
+        }
+    }
+
     @PostMapping("/search")
     public Result search(String userID, String startItem, String endItem) {
 
         int start = startItem == null ? -1 : Integer.parseInt(startItem);
         int end = endItem == null ? -1 : Integer.parseInt(endItem);
 
-        List<User> users = userService.search(userID, start, end);
+        List<User> users = userService.search(userID, start - 1, end);
 
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("data", users);

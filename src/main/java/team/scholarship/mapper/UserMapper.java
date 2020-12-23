@@ -25,6 +25,9 @@ public interface UserMapper {
     void update(@Param("userID") String userID, @Param("name") String name,
                 @Param("password") String password, @Param("score") double score);
 
+    void changePwd(@Param("userID") String userID, @Param("name") String name,
+                   @Param("password") String password);
+
     List<User> searchByID(@Param("userID") String userID);
 
     List<User> searchAll();

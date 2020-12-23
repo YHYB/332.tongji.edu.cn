@@ -24,4 +24,11 @@
         SET id = #{userID}, user_name = #{name}, password = #{password}, score = #{score}
         WHERE id = #{userID}
     </update>
+
+    <update id="changePwd">
+        UPDATE user
+        SET id = #{userID}, user_name = #{name}, password = #{password}
+        WHERE id = #{userID}
+    </update>
+
 </mapper>
