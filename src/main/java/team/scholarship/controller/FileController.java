@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import team.scholarship.result.Result;
+import team.scholarship.result.StatusEnum;
 import team.scholarship.util.FileUploadUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,12 +22,27 @@ import java.util.Date;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("/file")
 public class FileController {
 
     @PostMapping("/upload")
-    public String upload(MultipartFile file) {
-        // replaceAll 用来替换windows中的\\ 为 /
-        return FileUploadUtil.upload(file).replaceAll("\\\\", "/");
+    public Result upload(MultipartFile file, HttpServletRequest request) {
+
+        if (file.isEmpty()) {
+            return Result.ERROR(StatusEnum.NO_DATA);
+        }
+
+        String fileName = file.getOriginalFilename();
+        String filePath = "/software/tomcat9/webapps/upload/";
+        File dest = new File(filePath + fileName);
+        try {
+            file.transferTo(dest);
+            String url = "http://" + request.getServerName() + ":" +
+                    request.getServerPort() + "/" +
+                    request.getContextPath() + "/upload/" + fileName;
+            return Result.SUCCESS();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Result.ERROR(StatusEnum.NO_DATA);
     }
 }

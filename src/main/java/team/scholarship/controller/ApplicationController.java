@@ -73,18 +73,13 @@ public class ApplicationController {
         int start = startItem == null ? -1 : Integer.parseInt(startItem);
         int end = endItem == null ? -1 : Integer.parseInt(endItem);
 
-        List<Application> applications = applicationService.search(userID, year, scholarName,
+        List<Application> applications = applicationService.searchAdmin(userID, year, scholarName,
                 start - 1, end);
-
-        if (applications == null) {
-            return Result.ERROR(StatusEnum.NO_DATA);
-        }
-
-        applications.removeIf(application -> !application.getStatus().equals("待审核"));
 
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("data", applications);
         resultMap.put("totalNum", applications.size());
+
         return Result.SUCCESS(resultMap);
     }
 

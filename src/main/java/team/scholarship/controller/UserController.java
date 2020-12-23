@@ -89,8 +89,8 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public Result update(String userID, String userName, String password, double score) {
-        boolean success = userService.update(userID, userName, password, score);
+    public Result update(String userID, double score) {
+        boolean success = userService.update(userID, score);
 
         if (success) {
             return Result.SUCCESS("用户信息更新成功");
@@ -100,8 +100,8 @@ public class UserController {
     }
 
     @PostMapping("/changePwd")
-    public Result changePwd(String userID, String userName, String password) {
-        boolean success = userService.changePwd(userID, userName, password);
+    public Result changePwd(String userID, String password) {
+        boolean success = userService.changePwd(userID, password);
 
         if (success) {
             return Result.SUCCESS("用户信息更新成功");

@@ -70,19 +70,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean update(String userID, String userName, String password, double score) {
+    public boolean update(String userID, double score) {
 //        try {
 //            userMapper.update(userID, userName, password, score);
 //        } catch (Exception e) {
 //            return false;
 //        }
-        userMapper.update(userID, userName, password, score);
+        userMapper.update(userID, score);
         return true;
     }
 
     @Override
-    public boolean changePwd(String userID, String userName, String password) {
-        userMapper.changePwd(userID, userName, password);
+    public boolean changePwd(String userID, String password) {
+        userMapper.changePwd(userID, password);
         return true;
     }
 

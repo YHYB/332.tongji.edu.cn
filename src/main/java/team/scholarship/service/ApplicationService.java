@@ -19,9 +19,12 @@ public interface ApplicationService {
     List<Application> searchByUser(String userID);
 
     List<Application> search(String userID, String year, String scholarName,
-                       int startItem, int endItem);
+                             int startItem, int endItem);
 
     List<Application> search(String userID, String year, String scholarName);
+
+    List<Application> searchAdmin(String userID, String year, String scholarName,
+                                  int startItem, int endItem);
 
     boolean addApplication(String userID, String year, String scholarName,
                            String userName, double userGpa,

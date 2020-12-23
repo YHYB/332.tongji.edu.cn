@@ -73,6 +73,20 @@ public class ApplicationServiceImpl implements ApplicationService {
         return applicationMapper.search(userID, year, scholarName);
     }
 
+    @Override
+    public List<Application> searchAdmin(String userID, String year, String scholarName, int startItem, int endItem) {
+
+        List<Application> applications = this.search(userID, year, scholarName);
+        applications.removeIf(application -> !application.getStatus().equals("待审核"));
+
+        endItem = Math.min(endItem, applications.size());
+
+        if (startItem != -1 && endItem != -1) {
+            return applications.subList(startItem, endItem);
+        }
+        return applications;
+    }
+
 
     @Override
     public boolean addApplication(String userID, String year, String scholarName,

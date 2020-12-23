@@ -21,7 +21,7 @@
 
     <update id="update">
         UPDATE user
-        SET id = #{userID}, user_name = #{name}, password = #{password}, score = #{score}
+        SET score = #{score}
         WHERE id = #{userID}
     </update>
 
