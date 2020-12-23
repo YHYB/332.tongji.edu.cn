@@ -21,9 +21,15 @@
                 #{userGpa}, null, #{award}, #{reason},  #{canAdjust}, "待审核")
     </insert>
 
+    <delete id="deleteApplication">
+        DELETE FROM application
+        WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
+    </delete>
+
+
     <update id="updateInfo">
         UPDATE application
-        SET award = #{award}, reason = #{reason}
+        SET usr_gpa = #{userGpa}, award = #{award}, reason = #{reason}, can_adjust = #{canAdjust}
         WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
     </update>
 
@@ -32,5 +38,13 @@
         SET usr_score = #{score}
         WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
     </update>
+
+    <update id="updateStatus">
+        UPDATE application
+        SET status = #{status}
+        WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
+    </update>
+
+
 
 </mapper>

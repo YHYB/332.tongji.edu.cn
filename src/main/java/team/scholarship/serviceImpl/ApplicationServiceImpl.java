@@ -49,10 +49,23 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public boolean updateInfo(String userID, String year, String scholarName, String award, String reason) {
+    public boolean deleteApplication(String userID, String year, String scholarName) {
 
         try {
-            applicationMapper.updateInfo(userID, year, scholarName, award, reason);
+            applicationMapper.deleteApplication(userID, year, scholarName);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updateInfo(String userID, String year, String scholarName,
+                              double userGpa, String award, boolean canAdjust, String reason) {
+
+        try {
+            applicationMapper.updateInfo(userID, year, scholarName, userGpa, award,
+                    canAdjust, reason);
         } catch (Exception e) {
             return false;
         }
@@ -64,6 +77,16 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         try {
             applicationMapper.updateScore(userID, year, scholarName, score);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updateStatus(String userID, String year, String scholarName, String status) {
+        try {
+            applicationMapper.updateStatus(userID, year, scholarName, status);
         } catch (Exception e) {
             return false;
         }

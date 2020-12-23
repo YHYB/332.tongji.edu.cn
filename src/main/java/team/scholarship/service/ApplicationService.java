@@ -24,7 +24,12 @@ public interface ApplicationService {
                            String userName, double userGpa,
                            String award, boolean canAdjust, String reason);
 
-    boolean updateInfo(String userID, String year, String scholarName, String award, String reason);
+    boolean deleteApplication(String userID, String year, String scholarName);
+
+    boolean updateInfo(String userID, String year, String scholarName,
+                       double userGpa, String award, boolean canAdjust, String reason);
 
     boolean updateScore(String userID, String year, String scholarName, double score);
+
+    boolean updateStatus(String userID, String year, String scholarName, String status);
 }

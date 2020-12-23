@@ -1,5 +1,6 @@
 package team.scholarship.controller;
 
+import jdk.net.SocketFlow;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -77,10 +78,17 @@ public class ApplicationController {
         }
     }
 
-    @PostMapping("/updateInfo")
-    public Result updateInfo(String userID, String year, String scholarName, String award, String reason) {
-        boolean update = applicationService.updateInfo(userID, year, scholarName, award, reason);
+    @PostMapping("/delete")
+    public Result deleteApplication(String userID, String year, String scholarName) {
+        return Result.SUCCESS();
+    }
 
+    @PostMapping("/updateInfo")
+    public Result updateInfo(String userID, String year, String scholarName,
+                             double userGpa, String award,
+                             boolean canAdjust, String reason) {
+        boolean update = applicationService.updateInfo(userID, year, scholarName,
+                userGpa, award, canAdjust, reason);
         if (update) {
             return Result.SUCCESS("更新成功");
         } else {
@@ -91,6 +99,17 @@ public class ApplicationController {
     @PostMapping("/updateScore")
     public Result updateScore(String userID, String year, String scholarName, double score) {
         boolean update = applicationService.updateScore(userID, year, scholarName, score);
+
+        if (update) {
+            return Result.SUCCESS("更新成功");
+        } else {
+            return Result.ERROR(StatusEnum.NO_DATA, "更新失败");
+        }
+    }
+
+    @PostMapping("/updateStatus")
+    public Result updateStatus(String userID, String year, String scholarName, String status) {
+        boolean update = applicationService.updateStatus(userID, year, scholarName, status);
 
         if (update) {
             return Result.SUCCESS("更新成功");
