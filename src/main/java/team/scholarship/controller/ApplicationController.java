@@ -52,6 +52,17 @@ public class ApplicationController {
         }
     }
 
+    @PostMapping("/search")
+    public Result search(String userID, String year, String scholarName) {
+        Application application = applicationService.search(userID, year, scholarName);
+
+        if (application == null) {
+            return Result.ERROR(StatusEnum.NO_DATA);
+        } else {
+            return Result.SUCCESS(application);
+        }
+    }
+
     @PostMapping("/add")
     public Result addApplication(String userID, String year, String scholarName,
                                  String userName, double userGpa,

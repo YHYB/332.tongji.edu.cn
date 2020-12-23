@@ -10,6 +10,11 @@
         SELECT * FROM application WHERE usr_id = #{userID}
     </select>
 
+    <select id="search" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application
+        WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
+    </select>
+
     <insert id="addApplication">
         INSERT INTO application
         VALUES (#{userID}, #{year}, #{scholarName}, #{userName},

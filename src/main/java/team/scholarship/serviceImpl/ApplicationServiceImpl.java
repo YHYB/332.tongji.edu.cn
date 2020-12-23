@@ -31,6 +31,11 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
+    public Application search(String userID, String year, String scholarName) {
+        return applicationMapper.search(userID, year, scholarName);
+    }
+
+    @Override
     public boolean addApplication(String userID, String year, String scholarName,
                                   String userName, double userGpa,
                                   String award, boolean canAdjust, String reason) {
