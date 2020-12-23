@@ -76,6 +76,9 @@
         WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
     </update>
 
-
+    <select id="getAllPassed" resultType="Application">
+        SELECT * FROM application
+        WHERE status = '审核通过'
+    </select>
 
 </mapper>

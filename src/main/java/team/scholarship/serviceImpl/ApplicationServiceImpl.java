@@ -145,4 +145,9 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
         return true;
     }
+
+    @Override
+    public List<Application> getAllPassed() {
+        return applicationMapper.getAllPassed();
+    }
 }

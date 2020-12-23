@@ -61,4 +61,5 @@ public interface ApplicationMapper {
                       @Param("scholarName") String scholarName,
                       @Param("status") String status);
 
+    List<Application> getAllPassed();
 }
