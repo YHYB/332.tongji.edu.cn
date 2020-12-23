@@ -64,7 +64,7 @@ public class ApplicationController {
         int end = endItem == null ? -1 : Integer.parseInt(endItem);
 
         List<Application> application = applicationService.search(userID, year, scholarName,
-                start, end);
+                start - 1, end);
 
         if (application == null) {
             return Result.ERROR(StatusEnum.NO_DATA);

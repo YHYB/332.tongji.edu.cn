@@ -4,38 +4,46 @@
 
     <select id="searchAll" resultType="team.scholarship.bean.Application">
         SELECT * FROM application
+        ORDER BY usr_gpa DESC
     </select>
 
     <select id="searchByUser" resultType="team.scholarship.bean.Application">
         SELECT * FROM application WHERE usr_id = #{userID}
+        ORDER BY usr_gpa DESC
     </select>
 
     <select id="searchByYear" resultType="team.scholarship.bean.Application">
         SELECT * FROM application WHERE scholar_year = #{year}
+        ORDER BY usr_gpa DESC
     </select>
 
     <select id="searchByScholar" resultType="team.scholarship.bean.Application">
         SELECT * FROM application WHERE scholar_name = #{scholarName}
+        ORDER BY usr_gpa DESC
     </select>
 
     <select id="searchByUserAndYear" resultType="team.scholarship.bean.Application">
         SELECT * FROM application
         WHERE usr_id = #{userID} AND scholar_year = #{year}
+        ORDER BY usr_gpa DESC
     </select>
 
     <select id="searchByUserAndScholar" resultType="team.scholarship.bean.Application">
         SELECT * FROM application
         WHERE usr_id = #{userID} AND scholar_name = #{scholarName}
+        ORDER BY usr_gpa DESC
     </select>
 
     <select id="searchByYearAndScholar" resultType="team.scholarship.bean.Application">
         SELECT * FROM application
         WHERE scholar_year = #{year} AND scholar_name = #{scholarName}
+        ORDER BY usr_gpa DESC
     </select>
 
     <select id="search" resultType="team.scholarship.bean.Application">
         SELECT * FROM application
         WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
+        ORDER BY usr_gpa DESC
     </select>
 
     <insert id="addApplication">
