@@ -53,4 +53,14 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         return announcementMapper.searchByTitle(info);
     }
 
+    @Override
+    public void addAnnouncement(String date, String content, String title) {
+        announcementMapper.addAnnouncement(date, content, title);
+    }
+
+    @Override
+    public List<Announcement> getAll() {
+        return announcementMapper.getAll();
+    }
+
 }

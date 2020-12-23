@@ -2,6 +2,7 @@ package team.scholarship.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import team.scholarship.bean.Announcement;
 
@@ -18,4 +19,7 @@ public interface AnnouncementMapper {
 
     List<Announcement> searchByTitle(String info);
 
+    void addAnnouncement(@Param("date") String date, @Param("content") String content, @Param("title") String title);
+
+    List<Announcement> getAll();
 }
