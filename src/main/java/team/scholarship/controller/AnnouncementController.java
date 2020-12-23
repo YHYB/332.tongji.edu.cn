@@ -26,29 +26,50 @@ public class AnnouncementController {
     private AnnouncementService announcementService;
 
     /**
+     * add a new announcement into database
+     * @param date template: yyyymmdd
+     * @param content
+     * @param title
+     * @return
+     */
+    @PostMapping("/addAnnouncement")
+    public String addAnnouncement(String date, String content, String title) {
+        announcementService.addAnnouncement(date, content, title);
+        return "insert success";
+    }
+    /**
      * used to search announcement by id
-     * @param id announcement's id
+     * @param id
      * @return an announcement whose id == #{id}
      */
     @PostMapping("/searchById")
-    public Announcement searchById(int id){
+    public Announcement searchById(int id) {
         return announcementService.searchById(id);
     }
 
     /**
      * used to search announcement by key words in title
+     *
      * @param info which information user wants to search
      * @return a list of announcements whose title include the key word matching #{info}
      */
     @PostMapping("/searchByTitle")
-    public List<Announcement> searchByTitle(String info){return announcementService.searchByTitle(info);}
+    public List<Announcement> searchByTitle(String info) {
+        return announcementService.searchByTitle(info);
+    }
 
     /**
      * make the readNum of the announcement whose id == #{id} increase one
+     *
      * @param id announcement's id
      */
-    public void readNumIncrease(int id){
+    public void readNumIncrease(int id) {
         announcementService.readNumIncrease(id);
     }
 
+
+    @PostMapping("/getAll")
+    public List<Announcement> getAll(){
+        return announcementService.getAll();
+    }
 }

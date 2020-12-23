@@ -18,4 +18,12 @@
     <select id="searchByTitle" parameterType="String" resultType="team.scholarship.bean.Announcement">
         SELECT * FROM announcement WHERE title LIKE concat('%',#{info},'%')
     </select>
+
+    <insert id="addAnnouncement">
+        INSERT INTO announcement(date, content, title) VALUES (#{date}, #{content}, #{title})
+    </insert>
+
+    <select id="getAll" resultType="Announcement">
+        SELECT title content date FROM announcement
+    </select>
 </mapper>
