@@ -1,10 +1,8 @@
 package team.scholarship.controller;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import team.scholarship.bean.User;
-import team.scholarship.mapper.UserMapper;
 import team.scholarship.result.Result;
 import team.scholarship.result.StatusEnum;
 import team.scholarship.service.UserService;
@@ -124,9 +122,4 @@ public class UserController {
 
         return Result.SUCCESS(resultMap);
     }
-//    @PostMapping("searchAll")
-//    public Result searchAll() {
-//        return Result.SUCCESS(userService.searchAll());
-//    }
-
 }

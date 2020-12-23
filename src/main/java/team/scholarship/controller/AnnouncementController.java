@@ -56,9 +56,9 @@ public class AnnouncementController {
     @PostMapping("/searchById")
     public Result searchById(int id) {
         Announcement data = announcementService.searchById(id);
-        if(data==null){
+        if (data == null) {
             return Result.ERROR(StatusEnum.NO_DATA);
-        }else{
+        } else {
             return Result.SUCCESS(data);
         }
     }
@@ -96,22 +96,31 @@ public class AnnouncementController {
     }
 
     @PostMapping("/publish")
-    public Result publish(){
+    public Result publish() {
         List<Application> data = applicationService.getAllPassed();
-        if(data==null){
+        if (data == null) {
             return Result.ERROR(StatusEnum.NO_DATA);
-        }else{
-            Date day=new Date();
+        } else {
+            Date day = new Date();
             SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
-            java.util.Date date=new java.util.Date();
+            java.util.Date date = new java.util.Date();
             String tmp = new String();
-            for( Application d : data){
-                tmp+=d.getUsr_id()+"        "+d.getUsr_name()+"     "+d.getScholar_name()+"\n";
+            for (Application d : data) {
+                tmp += d.getUsr_id() + "        " + d.getUsr_name() + "     " + d.getScholar_name() + "\n";
             }
             announcementService.addAnnouncement(df.format(date), tmp, "奖学金获奖公示");
             return Result.SUCCESS();
         }
     }
 
+    @PostMapping("/search")
+    public Result search(int startItem, int endItem) {
+        List<Announcement> announcements = announcementService.getAll();
 
+        if (announcements == null || announcements.size() == 0) {
+            return Result.ERROR(StatusEnum.NO_DATA);
+        } else {
+            return Result.SUCCESS(announcements.subList(startItem - 1, endItem));
+        }
+    }
 }

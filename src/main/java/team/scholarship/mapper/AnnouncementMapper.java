@@ -22,4 +22,5 @@ public interface AnnouncementMapper {
     void addAnnouncement(@Param("date") String date, @Param("content") String content, @Param("title") String title);
 
     List<Announcement> getAll();
+
 }

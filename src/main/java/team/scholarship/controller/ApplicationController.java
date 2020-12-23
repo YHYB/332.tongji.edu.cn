@@ -1,7 +1,5 @@
 package team.scholarship.controller;
 
-import jdk.net.SocketFlow;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +9,6 @@ import team.scholarship.bean.Application;
 import team.scholarship.result.Result;
 import team.scholarship.result.StatusEnum;
 import team.scholarship.service.ApplicationService;
-import team.scholarship.util.CastUtil;
 
 import java.util.*;
 
@@ -135,11 +132,6 @@ public class ApplicationController {
 
     @PostMapping("/updateStatus")
     public Result updateStatus(String userID, String year, String scholarName, String status) {
-//        System.out.println(userID);
-//        System.out.println(year);
-//        System.out.println(scholarName);
-//        System.out.println(status);
-
         boolean update = applicationService.updateStatus(userID, year, scholarName, status);
 
         if (update) {
@@ -150,11 +142,11 @@ public class ApplicationController {
     }
 
     @PostMapping("/getAllPassed")
-    public Result getAllPassed(){
+    public Result getAllPassed() {
         List<Application> data = applicationService.getAllPassed();
-        if(data == null){
+        if (data == null) {
             return Result.ERROR(StatusEnum.NO_DATA);
-        }else{
+        } else {
             return Result.SUCCESS(data);
         }
     }

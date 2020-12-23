@@ -32,7 +32,7 @@ public class FileController {
         }
 
         String fileName = file.getOriginalFilename();
-        String filePath = "/software/tomcat9/webapps/upload/";
+        String filePath = "/software/tomcat9/webapps/奖学金申请材料/";
         File dest = new File(filePath + fileName);
         try {
             file.transferTo(dest);
