@@ -28,6 +28,9 @@ public class Application {
 
     private boolean can_adjust;
 
+    /**
+     *
+     */
     private String status;
 
     public void setUsr_id(String usr_id) {

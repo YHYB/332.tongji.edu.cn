@@ -43,26 +43,31 @@ public class ApplicationServiceImpl implements ApplicationService {
         return result;
     }
 
-    private List<Application> search(String userID, String year, String scholarName) {
-        if (userID == null && year == null && scholarName == null) {
+    public List<Application> search(String _id, String _year, String _name) {
+
+        String userID = _id == null ? "" : _id;
+        String year = _year == null ? "" : _year;
+        String scholarName = _name == null ? "" :_name;
+
+        if (userID.equals("") && year.equals("") && scholarName.equals("")) {
             return applicationMapper.searchAll();
         }
-        if (userID == null && year == null) {
+        if (userID.equals("") && year.equals("")) {
             return applicationMapper.searchByScholar(scholarName);
         }
-        if (userID == null && scholarName == null) {
+        if (userID.equals("") && scholarName.equals("")) {
             return applicationMapper.searchByYear(year);
         }
-        if (year == null && scholarName == null) {
+        if (year.equals("") && scholarName.equals("")) {
             return applicationMapper.searchByUser(userID);
         }
-        if (userID == null) {
+        if (userID.equals("")) {
             return applicationMapper.searchByYearAndScholar(year, scholarName);
         }
-        if (year == null) {
+        if (year.equals("")) {
             return applicationMapper.searchByUserAndScholar(userID, scholarName);
         }
-        if(scholarName == null) {
+        if (scholarName.equals("")) {
             return applicationMapper.searchByUserAndYear(userID, year);
         }
         return applicationMapper.search(userID, year, scholarName);

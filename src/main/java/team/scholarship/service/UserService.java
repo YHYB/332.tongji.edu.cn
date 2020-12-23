@@ -24,5 +24,8 @@ public interface UserService {
 
     boolean update(String userID, String userName, String password, double score);
 
-    List<User> searchAll();
+    List<User> search(String userID, int startItem, int endItem);
+
+    List<User> search(String userID);
+
 }

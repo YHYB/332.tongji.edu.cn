@@ -11,8 +11,11 @@ import team.scholarship.bean.Application;
 import team.scholarship.result.Result;
 import team.scholarship.result.StatusEnum;
 import team.scholarship.service.ApplicationService;
+import team.scholarship.util.CastUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName AnnounceController
@@ -40,19 +43,6 @@ public class ApplicationController {
         }
     }
 
-//    @PostMapping("/search1")
-//    public Result search(String userID) {
-//        System.out.println("输入userID:" + userID);
-//        List<Application> data = applicationService.searchByUser(userID);
-//        System.out.println(data);
-//
-//        if (data.size() == 0) {
-//            return Result.ERROR(StatusEnum.NO_DATA, "没有查询到任何申请");
-//        } else {
-//            return Result.SUCCESS(data);
-//        }
-//    }
-
     @PostMapping("/search")
     public Result search(String userID, String year, String scholarName,
                          String startItem, String endItem) {
@@ -60,17 +50,32 @@ public class ApplicationController {
 //        System.out.println("year: " + year);
 //        System.out.println("scholarship: " + scholarName);
 //        System.out.println("startItem: " + startItem);
+
         int start = startItem == null ? -1 : Integer.parseInt(startItem);
         int end = endItem == null ? -1 : Integer.parseInt(endItem);
 
         List<Application> application = applicationService.search(userID, year, scholarName,
                 start - 1, end);
 
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("data", application);
+        resultMap.put("totalNum", applicationService.search(userID, year, scholarName).size());
+
         if (application == null) {
             return Result.ERROR(StatusEnum.NO_DATA);
         } else {
-            return Result.SUCCESS(application);
+            return Result.SUCCESS(resultMap);
         }
+    }
+
+    @PostMapping("/admin/search")
+    public Result searchForAdmin(String userID, String year, String scholarName,
+                                 String startItem, String endItem) {
+
+        Result data = this.search(userID, year, scholarName, startItem, endItem);
+        List<Application> applications = CastUtil.castList(data, Application.class);
+
+        return Result.SUCCESS();
     }
 
     @PostMapping("/add")
@@ -89,7 +94,14 @@ public class ApplicationController {
 
     @PostMapping("/delete")
     public Result deleteApplication(String userID, String year, String scholarName) {
-        return Result.SUCCESS();
+
+        boolean delete = applicationService.deleteApplication(userID, year, scholarName);
+
+        if (delete) {
+            return Result.SUCCESS("删除成功");
+        } else {
+            return Result.ERROR(StatusEnum.NO_DATA, "删除失败");
+        }
     }
 
     @PostMapping("/updateInfo")
@@ -118,6 +130,11 @@ public class ApplicationController {
 
     @PostMapping("/updateStatus")
     public Result updateStatus(String userID, String year, String scholarName, String status) {
+//        System.out.println(userID);
+//        System.out.println(year);
+//        System.out.println(scholarName);
+//        System.out.println(status);
+
         boolean update = applicationService.updateStatus(userID, year, scholarName, status);
 
         if (update) {

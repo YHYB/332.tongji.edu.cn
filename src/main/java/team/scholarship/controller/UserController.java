@@ -55,7 +55,7 @@ public class UserController {
         if (user != null) {
             return Result.SUCCESS(user);
         }
-        return Result.ERROR(StatusEnum.NO_DATA,"账户登录过期，请重新登陆");
+        return Result.ERROR(StatusEnum.NO_DATA, "账户登录过期，请重新登陆");
     }
 
     @GetMapping("/logout")
@@ -73,7 +73,6 @@ public class UserController {
         } else {
             return Result.ERROR(StatusEnum.DUPLICATE_PK);
         }
-
     }
 
     @PostMapping("/info")
@@ -81,7 +80,7 @@ public class UserController {
         User user = userService.getUserInfo(userID);
 
         if (user == null) {
-            return Result.ERROR(StatusEnum.NO_DATA,null);
+            return Result.ERROR(StatusEnum.NO_DATA, null);
         } else {
             return Result.SUCCESS(user);
         }
@@ -98,9 +97,23 @@ public class UserController {
         }
     }
 
-    @PostMapping("searchAll")
-    public Result searchAll() {
-        return Result.SUCCESS(userService.searchAll());
+    @PostMapping("/search")
+    public Result search(String userID, String startItem, String endItem) {
+
+        int start = startItem == null ? -1 : Integer.parseInt(startItem);
+        int end = endItem == null ? -1 : Integer.parseInt(endItem);
+
+        List<User> users = userService.search(userID, start, end);
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("data", users);
+        resultMap.put("totalNum", userService.search(userID).size());
+
+        return Result.SUCCESS(resultMap);
     }
+//    @PostMapping("searchAll")
+//    public Result searchAll() {
+//        return Result.SUCCESS(userService.searchAll());
+//    }
 
 }

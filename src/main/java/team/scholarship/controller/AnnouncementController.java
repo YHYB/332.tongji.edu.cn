@@ -28,7 +28,8 @@ public class AnnouncementController {
 
     /**
      * add a new announcement into database
-     * @param date template: yyyymmdd
+     *
+     * @param date    template: yyyymmdd
      * @param content
      * @param title
      * @return
@@ -38,8 +39,10 @@ public class AnnouncementController {
         announcementService.addAnnouncement(date, content, title);
         return "insert success";
     }
+
     /**
      * used to search announcement by id
+     *
      * @param id
      * @return an announcement whose id == #{id}
      */
@@ -75,12 +78,12 @@ public class AnnouncementController {
 
 
     @PostMapping("/getAll")
-    public Result getAll(){
-        List<Announcement> data =  announcementService.getAll();
+    public Result getAll() {
+        List<Announcement> data = announcementService.getAll();
 
-        if(data == null){
+        if (data == null) {
             return Result.ERROR(StatusEnum.NO_DATA);
-        }else{
+        } else {
             return Result.SUCCESS(data);
         }
     }

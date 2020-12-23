@@ -81,7 +81,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> searchAll() {
-        return userMapper.searchAll();
+    public List<User> search(String userID, int startItem, int endItem) {
+        List<User> result = this.search(userID);
+
+        endItem = Math.min(endItem, result.size());
+
+        if (startItem != -1 && endItem != -1) {
+            return result.subList(startItem, endItem);
+        }
+        return result;
     }
+
+    @Override
+    public List<User> search(String _id) {
+        String userID = _id == null ? "" : _id;
+
+        if (userID.equals("")) {
+            return userMapper.searchAll();
+        }
+        return userMapper.searchByID(userID);
+    }
+
 }
