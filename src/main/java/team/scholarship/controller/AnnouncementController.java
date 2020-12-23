@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team.scholarship.bean.Announcement;
+import team.scholarship.result.Result;
+import team.scholarship.result.StatusEnum;
 import team.scholarship.service.AnnouncementService;
 
 import java.util.List;
@@ -68,7 +70,13 @@ public class AnnouncementController {
 
 
     @PostMapping("/getAll")
-    public List<Announcement> getAll(){
-        return announcementService.getAll();
+    public Result getAll(){
+        List<Announcement> data =  announcementService.getAll();
+
+        if(data == null){
+            return Result.ERROR(StatusEnum.NO_DATA);
+        }else{
+            return Result.SUCCESS(data);
+        }
     }
 }

@@ -24,6 +24,6 @@
     </insert>
 
     <select id="getAll" resultType="Announcement">
-        SELECT title content date FROM announcement
+        SELECT * FROM announcement
     </select>
 </mapper>
