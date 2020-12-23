@@ -154,5 +154,14 @@ public class ApplicationController {
         }
     }
 
+    @PostMapping("/getAllPassed")
+    public Result getAllPassed(){
+        List<Application> data = applicationService.getAllPassed();
+        if(data == null){
+            return Result.ERROR(StatusEnum.NO_DATA);
+        }else{
+            return Result.SUCCESS(data);
+        }
+    }
 
 }

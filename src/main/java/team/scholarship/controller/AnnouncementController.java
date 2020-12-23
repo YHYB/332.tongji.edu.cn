@@ -6,10 +6,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team.scholarship.bean.Announcement;
+import team.scholarship.bean.Application;
 import team.scholarship.result.Result;
 import team.scholarship.result.StatusEnum;
 import team.scholarship.service.AnnouncementService;
+import team.scholarship.service.ApplicationService;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +29,9 @@ import java.util.List;
 public class AnnouncementController {
     @Autowired
     private AnnouncementService announcementService;
+
+    @Autowired
+    private ApplicationService applicationService;
 
     /**
      * add a new announcement into database
@@ -87,4 +94,24 @@ public class AnnouncementController {
             return Result.SUCCESS(data);
         }
     }
+
+    @PostMapping("/publish")
+    public Result publish(){
+        List<Application> data = applicationService.getAllPassed();
+        if(data==null){
+            return Result.ERROR(StatusEnum.NO_DATA);
+        }else{
+            Date day=new Date();
+            SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+            java.util.Date date=new java.util.Date();
+            String tmp = new String();
+            for( Application d : data){
+                tmp+=d.getUsr_id()+"        "+d.getUsr_name()+"     "+d.getScholar_name()+"\n";
+            }
+            announcementService.addAnnouncement(df.format(date), tmp, "奖学金获奖公示");
+            return Result.SUCCESS();
+        }
+    }
+
+
 }

@@ -35,4 +35,6 @@ public interface ApplicationService {
     boolean updateScore(String userID, String year, String scholarName, double score);
 
     boolean updateStatus(String userID, String year, String scholarName, String status);
+
+    List<Application> getAllPassed();
 }
