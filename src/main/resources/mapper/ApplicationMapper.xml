@@ -10,6 +10,29 @@
         SELECT * FROM application WHERE usr_id = #{userID}
     </select>
 
+    <select id="searchByYear" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application WHERE scholar_year = #{year}
+    </select>
+
+    <select id="searchByScholar" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application WHERE scholar_name = #{scholarName}
+    </select>
+
+    <select id="searchByUserAndYear" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application
+        WHERE usr_id = #{userID} AND scholar_year = #{year}
+    </select>
+
+    <select id="searchByUserAndScholar" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application
+        WHERE usr_id = #{userID} AND scholar_name = #{scholarName}
+    </select>
+
+    <select id="searchByYearAndScholar" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application
+        WHERE scholar_year = #{year} AND scholar_name = #{scholarName}
+    </select>
+
     <select id="search" resultType="team.scholarship.bean.Application">
         SELECT * FROM application
         WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
@@ -21,9 +44,15 @@
                 #{userGpa}, null, #{award}, #{reason},  #{canAdjust}, "待审核")
     </insert>
 
+    <delete id="deleteApplication">
+        DELETE FROM application
+        WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
+    </delete>
+
+
     <update id="updateInfo">
         UPDATE application
-        SET award = #{award}, reason = #{reason}
+        SET usr_gpa = #{userGpa}, award = #{award}, reason = #{reason}, can_adjust = #{canAdjust}
         WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
     </update>
 
@@ -32,5 +61,13 @@
         SET usr_score = #{score}
         WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
     </update>
+
+    <update id="updateStatus">
+        UPDATE application
+        SET status = #{status}
+        WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
+    </update>
+
+
 
 </mapper>

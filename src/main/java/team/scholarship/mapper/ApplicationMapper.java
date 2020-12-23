@@ -21,7 +21,20 @@ public interface ApplicationMapper {
 
     List<Application> searchByUser(@Param("userID") String userID);
 
-    Application search(@Param("userID") String userID, @Param("year") String year,
+    List<Application> searchByYear(@Param("year") String year);
+
+    List<Application> searchByScholar(@Param("scholarName") String scholarName);
+
+    List<Application> searchByUserAndYear(@Param("userID") String userID,
+                                          @Param("year") String year);
+
+    List<Application> searchByUserAndScholar(@Param("userID") String userID,
+                                             @Param("scholarName") String scholarName);
+
+    List<Application> searchByYearAndScholar(@Param("year") String year,
+                                             @Param("scholarName") String scholarName);
+
+    List<Application> search(@Param("userID") String userID, @Param("year") String year,
                        @Param("scholarName") String scholarName);
 
     void addApplication(@Param("userID") String userID, @Param("year") String year,
@@ -31,11 +44,21 @@ public interface ApplicationMapper {
                                @Param("award") String award, @Param("canAdjust") boolean canAdjust,
                                @Param("reason") String reason);
 
+    void deleteApplication(@Param("userID") String userID, @Param("year") String year,
+                           @Param("scholarName") String scholarName);
+
     void updateInfo(@Param("userID") String userID, @Param("year") String year,
                            @Param("scholarName") String scholarName,
-                           @Param("award") String award, @Param("reason") String reason);
+                           @Param("userGpa") double userGpa,
+                           @Param("award") String award, @Param("canAdjust") boolean canAdjust,
+                           @Param("reason") String reason);
 
     void updateScore(@Param("userID") String userID, @Param("year") String year,
                      @Param("scholarName") String scholarName,
                      @Param("score") double score);
+
+    void updateStatus(@Param("userID") String userID, @Param("year") String year,
+                      @Param("scholarName") String scholarName,
+                      @Param("status") String status);
+
 }

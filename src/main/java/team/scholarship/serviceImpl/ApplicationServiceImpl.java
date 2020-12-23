@@ -31,9 +31,43 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public Application search(String userID, String year, String scholarName) {
+    public List<Application> search(String userID, String year, String scholarName, int startItem, int endItem) {
+
+        List<Application> result = this.search(userID, year, scholarName);
+
+        endItem = Math.min(endItem, result.size());
+
+        if (startItem != -1 && endItem != -1) {
+            return result.subList(startItem, endItem);
+        }
+        return result;
+    }
+
+    private List<Application> search(String userID, String year, String scholarName) {
+        if (userID == null && year == null && scholarName == null) {
+            return applicationMapper.searchAll();
+        }
+        if (userID == null && year == null) {
+            return applicationMapper.searchByScholar(scholarName);
+        }
+        if (userID == null && scholarName == null) {
+            return applicationMapper.searchByYear(year);
+        }
+        if (year == null && scholarName == null) {
+            return applicationMapper.searchByUser(userID);
+        }
+        if (userID == null) {
+            return applicationMapper.searchByYearAndScholar(year, scholarName);
+        }
+        if (year == null) {
+            return applicationMapper.searchByUserAndScholar(userID, scholarName);
+        }
+        if(scholarName == null) {
+            return applicationMapper.searchByUserAndYear(userID, year);
+        }
         return applicationMapper.search(userID, year, scholarName);
     }
+
 
     @Override
     public boolean addApplication(String userID, String year, String scholarName,
@@ -49,10 +83,23 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public boolean updateInfo(String userID, String year, String scholarName, String award, String reason) {
+    public boolean deleteApplication(String userID, String year, String scholarName) {
 
         try {
-            applicationMapper.updateInfo(userID, year, scholarName, award, reason);
+            applicationMapper.deleteApplication(userID, year, scholarName);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updateInfo(String userID, String year, String scholarName,
+                              double userGpa, String award, boolean canAdjust, String reason) {
+
+        try {
+            applicationMapper.updateInfo(userID, year, scholarName, userGpa, award,
+                    canAdjust, reason);
         } catch (Exception e) {
             return false;
         }
@@ -64,6 +111,16 @@ public class ApplicationServiceImpl implements ApplicationService {
 
         try {
             applicationMapper.updateScore(userID, year, scholarName, score);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updateStatus(String userID, String year, String scholarName, String status) {
+        try {
+            applicationMapper.updateStatus(userID, year, scholarName, status);
         } catch (Exception e) {
             return false;
         }
