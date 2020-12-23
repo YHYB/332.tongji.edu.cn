@@ -2,8 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="team.scholarship.mapper.ApplicationMapper">
 
-    <select id="searchByUser" parameterType="String" resultType="team.scholarship.bean.Application">
+    <select id="searchAll" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application
+    </select>
+
+    <select id="searchByUser" resultType="team.scholarship.bean.Application">
         SELECT * FROM application WHERE usr_id = #{userID}
     </select>
+
+    <select id="search" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application
+        WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
+    </select>
+
+    <insert id="addApplication">
+        INSERT INTO application
+        VALUES (#{userID}, #{year}, #{scholarName}, #{userName},
+                #{userGpa}, null, #{award}, #{reason},  #{canAdjust}, "待审核")
+    </insert>
+
+    <update id="updateInfo">
+        UPDATE application
+        SET award = #{award}, reason = #{reason}
+        WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
+    </update>
+
+    <update id="updateScore">
+        UPDATE application
+        SET usr_score = #{score}
+        WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
+    </update>
 
 </mapper>

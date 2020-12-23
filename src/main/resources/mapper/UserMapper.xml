@@ -6,4 +6,18 @@
         SELECT * FROM user WHERE id = #{id}
     </select>
 
+    <select id="searchAll" resultType="team.scholarship.bean.User">
+        SELECT * FROM user
+    </select>
+
+    <insert id="register">
+        INSERT INTO user
+        VALUES (#{userID}, #{name}, #{password}, null)
+    </insert>
+
+    <update id="update">
+        UPDATE user
+        SET id = #{userID}, user_name = #{name}, password = #{password}, score = #{score}
+        WHERE id = #{userID}
+    </update>
 </mapper>
