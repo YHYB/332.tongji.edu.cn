@@ -33,7 +33,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
 <!--            使用外部tomcat时启用下面这行 -->
-<!--            <scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>

@@ -40,22 +40,31 @@ public class ApplicationController {
         }
     }
 
-    @PostMapping("/searchByUser")
-    public Result searchByUser(String userID) {
-        System.out.println("输入userID:" + userID);
-        List<Application> data = applicationService.searchByUser(userID);
-        System.out.println(data);
-
-        if (data.size() == 0) {
-            return Result.ERROR(StatusEnum.NO_DATA, "没有查询到任何申请");
-        } else {
-            return Result.SUCCESS(data);
-        }
-    }
+//    @PostMapping("/search1")
+//    public Result search(String userID) {
+//        System.out.println("输入userID:" + userID);
+//        List<Application> data = applicationService.searchByUser(userID);
+//        System.out.println(data);
+//
+//        if (data.size() == 0) {
+//            return Result.ERROR(StatusEnum.NO_DATA, "没有查询到任何申请");
+//        } else {
+//            return Result.SUCCESS(data);
+//        }
+//    }
 
     @PostMapping("/search")
-    public Result search(String userID, String year, String scholarName) {
-        Application application = applicationService.search(userID, year, scholarName);
+    public Result search(String userID, String year, String scholarName,
+                         String startItem, String endItem) {
+//        System.out.println("userID: " + userID);
+//        System.out.println("year: " + year);
+//        System.out.println("scholarship: " + scholarName);
+//        System.out.println("startItem: " + startItem);
+        int start = startItem == null ? -1 : Integer.parseInt(startItem);
+        int end = endItem == null ? -1 : Integer.parseInt(endItem);
+
+        List<Application> application = applicationService.search(userID, year, scholarName,
+                start, end);
 
         if (application == null) {
             return Result.ERROR(StatusEnum.NO_DATA);

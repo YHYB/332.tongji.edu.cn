@@ -21,7 +21,20 @@ public interface ApplicationMapper {
 
     List<Application> searchByUser(@Param("userID") String userID);
 
-    Application search(@Param("userID") String userID, @Param("year") String year,
+    List<Application> searchByYear(@Param("year") String year);
+
+    List<Application> searchByScholar(@Param("scholarName") String scholarName);
+
+    List<Application> searchByUserAndYear(@Param("userID") String userID,
+                                          @Param("year") String year);
+
+    List<Application> searchByUserAndScholar(@Param("userID") String userID,
+                                             @Param("scholarName") String scholarName);
+
+    List<Application> searchByYearAndScholar(@Param("year") String year,
+                                             @Param("scholarName") String scholarName);
+
+    List<Application> search(@Param("userID") String userID, @Param("year") String year,
                        @Param("scholarName") String scholarName);
 
     void addApplication(@Param("userID") String userID, @Param("year") String year,

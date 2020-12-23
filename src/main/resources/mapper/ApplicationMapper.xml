@@ -10,6 +10,29 @@
         SELECT * FROM application WHERE usr_id = #{userID}
     </select>
 
+    <select id="searchByYear" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application WHERE scholar_year = #{year}
+    </select>
+
+    <select id="searchByScholar" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application WHERE scholar_name = #{scholarName}
+    </select>
+
+    <select id="searchByUserAndYear" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application
+        WHERE usr_id = #{userID} AND scholar_year = #{year}
+    </select>
+
+    <select id="searchByUserAndScholar" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application
+        WHERE usr_id = #{userID} AND scholar_name = #{scholarName}
+    </select>
+
+    <select id="searchByYearAndScholar" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application
+        WHERE scholar_year = #{year} AND scholar_name = #{scholarName}
+    </select>
+
     <select id="search" resultType="team.scholarship.bean.Application">
         SELECT * FROM application
         WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
