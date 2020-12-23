@@ -21,15 +21,49 @@ public class ApplicationServiceImpl implements ApplicationService {
     private ApplicationMapper applicationMapper;
 
     @Override
+    public List<Application> searchAll() {
+        return applicationMapper.searchAll();
+    }
+
+    @Override
     public List<Application> searchByUser(String userID) {
         return applicationMapper.searchByUser(userID);
     }
 
     @Override
-    public boolean addApplication(String userID, String year, String scholarName, String reason) {
+    public Application search(String userID, String year, String scholarName) {
+        return applicationMapper.search(userID, year, scholarName);
+    }
+
+    @Override
+    public boolean addApplication(String userID, String year, String scholarName,
+                                  String userName, double userGpa,
+                                  String award, boolean canAdjust, String reason) {
 
         try {
-            applicationMapper.addApplication(userID, year, scholarName, reason);
+            applicationMapper.addApplication(userID, year, scholarName, userName, userGpa, award, canAdjust, reason);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updateInfo(String userID, String year, String scholarName, String award, String reason) {
+
+        try {
+            applicationMapper.updateInfo(userID, year, scholarName, award, reason);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updateScore(String userID, String year, String scholarName, double score) {
+
+        try {
+            applicationMapper.updateScore(userID, year, scholarName, score);
         } catch (Exception e) {
             return false;
         }

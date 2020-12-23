@@ -1,6 +1,5 @@
 package team.scholarship.result;
 
-import com.sun.org.apache.bcel.internal.classfile.Code;
 
 /**
  * @ClassName Result
@@ -8,7 +7,7 @@ import com.sun.org.apache.bcel.internal.classfile.Code;
  * @Author Brian.Z
  * @Date 2020/12/21 13:04
  */
-public class Result<T> {
+public class Result {
 
     // 是否执行成功
     private boolean success;
@@ -20,20 +19,40 @@ public class Result<T> {
     private String msg;
 
     // 具体传输的数据
-    private T data;
+    private Object data;
 
-    public Result(boolean success, int code, String msg, T data) {
+    public Result(boolean success, int code, String msg, Object data) {
         this.success = success;
         this.code = code;
         this.msg = msg;
         this.data = data;
     }
 
-    public Result(StatusEnum statusEnum, T data) {
+    public Result(StatusEnum statusEnum, Object data) {
         this.success = statusEnum.getCode() == 200;
         this.code = statusEnum.getCode();
         this.msg = statusEnum.getMsg();
         this.data = data;
+    }
+
+    public Result(StatusEnum statusEnum) {
+        this(statusEnum, null);
+    }
+
+    public static Result SUCCESS(Object data) {
+        return new Result(StatusEnum.SUCCESS, data);
+    }
+
+    public static Result SUCCESS() {
+        return new Result(StatusEnum.SUCCESS);
+    }
+
+    public static Result ERROR(StatusEnum statusEnum, Object data) {
+        return new Result(statusEnum, data);
+    }
+
+    public static Result ERROR(StatusEnum statusEnum) {
+        return new Result(statusEnum);
     }
 
     public int getCode() {
@@ -52,11 +71,11 @@ public class Result<T> {
         return msg;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 }

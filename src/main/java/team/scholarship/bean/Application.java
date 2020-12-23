@@ -1,5 +1,7 @@
 package team.scholarship.bean;
 
+import java.util.Set;
+
 /**
  * @ClassName Application
  * @Description TODO
@@ -14,11 +16,19 @@ public class Application {
 
     private String scholar_name;
 
+    private String usr_name;
+
+    private double usr_gpa;
+
     private double usr_score;
+
+    private String award;
 
     private String reason;
 
-    private int status;
+    private boolean can_adjust;
+
+    private String status;
 
     public void setUsr_id(String usr_id) {
         this.usr_id = usr_id;
@@ -44,12 +54,36 @@ public class Application {
         return scholar_name;
     }
 
+    public void setUsr_name(String usr_name) {
+        this.usr_name = usr_name;
+    }
+
+    public String getUsr_name() {
+        return usr_name;
+    }
+
+    public void setUsr_gpa(double usr_gpa) {
+        this.usr_gpa = usr_gpa;
+    }
+
+    public double getUsr_gpa() {
+        return usr_gpa;
+    }
+
     public void setUsr_score(double usr_score) {
         this.usr_score = usr_score;
     }
 
     public double getUsr_score() {
         return usr_score;
+    }
+
+    public void setAward(String award) {
+        this.award = award;
+    }
+
+    public String getAward() {
+        return award;
     }
 
     public void setReason(String reason) {
@@ -60,11 +94,19 @@ public class Application {
         return reason;
     }
 
-    public void setStatus(int status) {
+    public void setCan_adjust(boolean can_adjust) {
+        this.can_adjust = can_adjust;
+    }
+
+    public boolean getCan_adjust() {
+        return can_adjust;
+    }
+
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public int getStatus() {
+    public String  getStatus() {
         return status;
     }
 }

@@ -14,7 +14,17 @@ import java.util.List;
 @Service
 public interface ApplicationService {
 
+    List<Application> searchAll();
+
     List<Application> searchByUser(String userID);
 
-    boolean addApplication(String userID, String year, String scholarName, String reason);
+    Application search(String userID, String year, String scholarName);
+
+    boolean addApplication(String userID, String year, String scholarName,
+                           String userName, double userGpa,
+                           String award, boolean canAdjust, String reason);
+
+    boolean updateInfo(String userID, String year, String scholarName, String award, String reason);
+
+    boolean updateScore(String userID, String year, String scholarName, double score);
 }
