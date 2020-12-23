@@ -44,8 +44,13 @@ public class AnnouncementController {
      * @return an announcement whose id == #{id}
      */
     @PostMapping("/searchById")
-    public Announcement searchById(int id) {
-        return announcementService.searchById(id);
+    public Result searchById(int id) {
+        Announcement data = announcementService.searchById(id);
+        if(data==null){
+            return Result.ERROR(StatusEnum.NO_DATA);
+        }else{
+            return Result.SUCCESS(data);
+        }
     }
 
     /**
