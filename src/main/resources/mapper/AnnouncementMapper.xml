@@ -26,4 +26,8 @@
     <select id="getAll" resultType="Announcement">
         SELECT * FROM announcement
     </select>
+
+    <select id="deleteAnnouncement" parameterType="int">
+        DELETE FROM announcement WHERE id = #{id}
+    </select>
 </mapper>

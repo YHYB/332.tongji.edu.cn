@@ -13,7 +13,9 @@ public interface AnnouncementService {
 
     List <Announcement> searchByTitle(String info);
 
-    void addAnnouncement(String date, String content, String title);
+    boolean addAnnouncement(String date, String content, String title);
 
     List<Announcement> getAll();
+
+    boolean deleteAnnouncement(int id);
 }

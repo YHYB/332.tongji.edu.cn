@@ -12,9 +12,12 @@ import team.scholarship.result.StatusEnum;
 import team.scholarship.service.AnnouncementService;
 import team.scholarship.service.ApplicationService;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Kerr
@@ -42,11 +45,25 @@ public class AnnouncementController {
      * @return
      */
     @PostMapping("/addAnnouncement")
-    public String addAnnouncement(String date, String content, String title) {
-        announcementService.addAnnouncement(date, content, title);
-        return "insert success";
+    public Result addAnnouncement(String date, String content, String title) {
+        boolean rlt = announcementService.addAnnouncement(date, content, title);
+        if(rlt){
+            return Result.SUCCESS();
+        }else{
+            return Result.ERROR(StatusEnum.DUPLICATE_PK);
+        }
     }
 
+
+    @PostMapping("/deleteAnnouncement")
+    public Result deleteAnnouncement(int id){
+        boolean rlt = announcementService.deleteAnnouncement(id);
+        if(rlt){
+            return Result.SUCCESS();
+        }else{
+            return Result.ERROR(StatusEnum.NO_DATA);
+        }
+    }
     /**
      * used to search announcement by id
      *
@@ -115,12 +132,18 @@ public class AnnouncementController {
 
     @PostMapping("/search")
     public Result search(int startItem, int endItem) {
+        Map<String, Object> resultMap = new HashMap<>();
+
         List<Announcement> announcements = announcementService.getAll();
+        int totalNum = announcementService.getAll().size();
+        int end = Math.min(endItem, totalNum);
 
         if (announcements == null || announcements.size() == 0) {
             return Result.ERROR(StatusEnum.NO_DATA);
         } else {
-            return Result.SUCCESS(announcements.subList(startItem - 1, endItem));
+            resultMap.put("data", announcements.subList(startItem - 1, end));
+            resultMap.put("totalNum", announcementService.getAll().size());
+            return Result.SUCCESS(resultMap);
         }
     }
 }

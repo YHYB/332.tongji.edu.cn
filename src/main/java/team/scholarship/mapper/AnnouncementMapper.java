@@ -23,4 +23,6 @@ public interface AnnouncementMapper {
 
     List<Announcement> getAll();
 
+
+    void deleteAnnouncement(int id);
 }
