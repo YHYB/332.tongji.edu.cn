@@ -27,7 +27,7 @@
 
     <update id="changePwd">
         UPDATE user
-        SET id = #{userID}, user_name = #{name}, password = #{password}
+        SET id = #{userID}, password = #{password}
         WHERE id = #{userID}
     </update>
 
