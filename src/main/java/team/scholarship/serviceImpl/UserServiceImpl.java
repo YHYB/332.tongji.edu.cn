@@ -70,18 +70,42 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean update(String userID, String userName, String password, double score) {
+    public boolean update(String userID, double score) {
 //        try {
 //            userMapper.update(userID, userName, password, score);
 //        } catch (Exception e) {
 //            return false;
 //        }
-        userMapper.update(userID, userName, password, score);
+        userMapper.update(userID, score);
         return true;
     }
 
     @Override
-    public List<User> searchAll() {
-        return userMapper.searchAll();
+    public boolean changePwd(String userID, String password) {
+        userMapper.changePwd(userID, password);
+        return true;
     }
+
+    @Override
+    public List<User> search(String userID, int startItem, int endItem) {
+        List<User> result = this.search(userID);
+
+        endItem = Math.min(endItem, result.size());
+
+        if (startItem != -1 && endItem != -1) {
+            return result.subList(startItem, endItem);
+        }
+        return result;
+    }
+
+    @Override
+    public List<User> search(String _id) {
+        String userID = _id == null ? "" : _id;
+
+        if (userID.equals("")) {
+            return userMapper.searchAll();
+        }
+        return userMapper.searchByID(userID);
+    }
+
 }

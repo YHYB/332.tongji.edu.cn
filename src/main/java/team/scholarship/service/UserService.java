@@ -22,7 +22,12 @@ public interface UserService {
 
     User getInfo(String token);
 
-    boolean update(String userID, String userName, String password, double score);
+    boolean update(String userID, double score);
 
-    List<User> searchAll();
+    boolean changePwd(String userID, String password);
+
+    List<User> search(String userID, int startItem, int endItem);
+
+    List<User> search(String userID);
+
 }

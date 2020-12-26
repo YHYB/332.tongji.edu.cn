@@ -1,6 +1,5 @@
 package team.scholarship.controller;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +10,7 @@ import team.scholarship.result.Result;
 import team.scholarship.result.StatusEnum;
 import team.scholarship.service.ApplicationService;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * @ClassName AnnounceController
@@ -39,28 +38,46 @@ public class ApplicationController {
         }
     }
 
-    @PostMapping("/searchByUser")
-    public Result searchByUser(String userID) {
-        System.out.println("输入userID:" + userID);
-        List<Application> data = applicationService.searchByUser(userID);
-        System.out.println(data);
-
-        if (data.size() == 0) {
-            return Result.ERROR(StatusEnum.NO_DATA, "没有查询到任何申请");
-        } else {
-            return Result.SUCCESS(data);
-        }
-    }
-
     @PostMapping("/search")
-    public Result search(String userID, String year, String scholarName) {
-        Application application = applicationService.search(userID, year, scholarName);
+    public Result search(String userID, String year, String scholarName,
+                         String startItem, String endItem) {
+//        System.out.println("userID: " + userID);
+//        System.out.println("year: " + year);
+//        System.out.println("scholarship: " + scholarName);
+//        System.out.println("startItem: " + startItem);
+
+        int start = startItem == null ? -1 : Integer.parseInt(startItem);
+        int end = endItem == null ? -1 : Integer.parseInt(endItem);
+
+        List<Application> application = applicationService.search(userID, year, scholarName,
+                start - 1, end);
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("data", application);
+        resultMap.put("totalNum", applicationService.search(userID, year, scholarName).size());
 
         if (application == null) {
             return Result.ERROR(StatusEnum.NO_DATA);
         } else {
-            return Result.SUCCESS(application);
+            return Result.SUCCESS(resultMap);
         }
+    }
+
+    @PostMapping("/admin/search")
+    public Result searchForAdmin(String userID, String year, String scholarName,
+                                 String startItem, String endItem) {
+
+        int start = startItem == null ? -1 : Integer.parseInt(startItem);
+        int end = endItem == null ? -1 : Integer.parseInt(endItem);
+
+        List<Application> applications = applicationService.searchAdmin(userID, year, scholarName,
+                start - 1, end);
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("data", applications);
+        resultMap.put("totalNum", applications.size());
+
+        return Result.SUCCESS(resultMap);
     }
 
     @PostMapping("/add")
@@ -77,10 +94,24 @@ public class ApplicationController {
         }
     }
 
-    @PostMapping("/updateInfo")
-    public Result updateInfo(String userID, String year, String scholarName, String award, String reason) {
-        boolean update = applicationService.updateInfo(userID, year, scholarName, award, reason);
+    @PostMapping("/delete")
+    public Result deleteApplication(String userID, String year, String scholarName) {
 
+        boolean delete = applicationService.deleteApplication(userID, year, scholarName);
+
+        if (delete) {
+            return Result.SUCCESS("删除成功");
+        } else {
+            return Result.ERROR(StatusEnum.NO_DATA, "删除失败");
+        }
+    }
+
+    @PostMapping("/updateInfo")
+    public Result updateInfo(String userID, String year, String scholarName,
+                             double userGpa, String award,
+                             boolean canAdjust, String reason) {
+        boolean update = applicationService.updateInfo(userID, year, scholarName,
+                userGpa, award, canAdjust, reason);
         if (update) {
             return Result.SUCCESS("更新成功");
         } else {
@@ -98,4 +129,26 @@ public class ApplicationController {
             return Result.ERROR(StatusEnum.NO_DATA, "更新失败");
         }
     }
+
+    @PostMapping("/updateStatus")
+    public Result updateStatus(String userID, String year, String scholarName, String status) {
+        boolean update = applicationService.updateStatus(userID, year, scholarName, status);
+
+        if (update) {
+            return Result.SUCCESS("更新成功");
+        } else {
+            return Result.ERROR(StatusEnum.NO_DATA, "更新失败");
+        }
+    }
+
+    @PostMapping("/getAllPassed")
+    public Result getAllPassed() {
+        List<Application> data = applicationService.getAllPassed();
+        if (data == null) {
+            return Result.ERROR(StatusEnum.NO_DATA);
+        } else {
+            return Result.SUCCESS(data);
+        }
+    }
+
 }

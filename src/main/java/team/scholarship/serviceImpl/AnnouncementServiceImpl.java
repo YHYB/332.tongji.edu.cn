@@ -53,4 +53,29 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         return announcementMapper.searchByTitle(info);
     }
 
+    @Override
+    public boolean addAnnouncement(String date, String content, String title) {
+        try{
+            announcementMapper.addAnnouncement(date, content, title);
+        }catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public List<Announcement> getAll() {
+        return announcementMapper.getAll();
+    }
+
+    @Override
+    public boolean deleteAnnouncement(int id) {
+        try {
+            announcementMapper.deleteAnnouncement(id);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
 }

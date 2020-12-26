@@ -4,15 +4,46 @@
 
     <select id="searchAll" resultType="team.scholarship.bean.Application">
         SELECT * FROM application
+        ORDER BY usr_gpa DESC
     </select>
 
     <select id="searchByUser" resultType="team.scholarship.bean.Application">
         SELECT * FROM application WHERE usr_id = #{userID}
+        ORDER BY usr_gpa DESC
+    </select>
+
+    <select id="searchByYear" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application WHERE scholar_year = #{year}
+        ORDER BY usr_gpa DESC
+    </select>
+
+    <select id="searchByScholar" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application WHERE scholar_name = #{scholarName}
+        ORDER BY usr_gpa DESC
+    </select>
+
+    <select id="searchByUserAndYear" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application
+        WHERE usr_id = #{userID} AND scholar_year = #{year}
+        ORDER BY usr_gpa DESC
+    </select>
+
+    <select id="searchByUserAndScholar" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application
+        WHERE usr_id = #{userID} AND scholar_name = #{scholarName}
+        ORDER BY usr_gpa DESC
+    </select>
+
+    <select id="searchByYearAndScholar" resultType="team.scholarship.bean.Application">
+        SELECT * FROM application
+        WHERE scholar_year = #{year} AND scholar_name = #{scholarName}
+        ORDER BY usr_gpa DESC
     </select>
 
     <select id="search" resultType="team.scholarship.bean.Application">
         SELECT * FROM application
         WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
+        ORDER BY usr_gpa DESC
     </select>
 
     <insert id="addApplication">
@@ -21,9 +52,15 @@
                 #{userGpa}, null, #{award}, #{reason},  #{canAdjust}, "待审核")
     </insert>
 
+    <delete id="deleteApplication">
+        DELETE FROM application
+        WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
+    </delete>
+
+
     <update id="updateInfo">
         UPDATE application
-        SET award = #{award}, reason = #{reason}
+        SET usr_gpa = #{userGpa}, award = #{award}, reason = #{reason}, can_adjust = #{canAdjust}
         WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
     </update>
 
@@ -32,5 +69,16 @@
         SET usr_score = #{score}
         WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
     </update>
+
+    <update id="updateStatus">
+        UPDATE application
+        SET status = #{status}
+        WHERE usr_id = #{userID} AND scholar_year = #{year} AND scholar_name = #{scholarName}
+    </update>
+
+    <select id="getAllPassed" resultType="Application">
+        SELECT * FROM application
+        WHERE status = '审核通过'
+    </select>
 
 </mapper>
